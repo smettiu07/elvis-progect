@@ -779,7 +779,7 @@
   const personsInput = document.getElementById('persons');
   const availabilityNote = document.getElementById('availabilityNote');
   const submitButton = document.getElementById('bookingSubmit');
-*/
+
   // Never allow a date in the past.
   const today = new Date();
   const localToday = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
@@ -796,7 +796,7 @@
       timeSelect.innerHTML = '<option value="11:30">11:30</option>';
     }
   }
-/*
+
   async function checkAvailability() {
     if (!tourSelect.value || !dateInput.value) return;
     availabilityNote.textContent = 'Checking availability…';
@@ -812,13 +812,13 @@
       availabilityNote.classList.add('unavailable');
       submitButton.disabled = false;
     }
-  }*/
+  }
 
   tourSelect.addEventListener('change', () => { updateTourLimits(); checkAvailability(); });
   dateInput.addEventListener('change', checkAvailability);
   timeSelect.addEventListener('change', checkAvailability);
   updateTourLimits();
-
+*/
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     formSuccess.classList.remove('show', 'error');
