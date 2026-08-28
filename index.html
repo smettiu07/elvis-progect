@@ -303,98 +303,66 @@
 </div>
 
 <!-- BOOK -->
-<section class="book" id="book">
-  <div class="wrap book-grid">
-    <div class="book-side reveal">
-      <div class="section-head">
-        <p class="eyebrow on-dark">Book Your Tour</p>
-        <h2 style="color:#fff;">Let's get you on the water.</h2>
-        <p>Send a request below, call, or message us directly — we usually reply within the hour.</p>
-      </div>
-
-      <div class="contact-lines">
-        <a href="tel:+35699286698"><span class="ic">☎</span> +356 9928 6698</a>
-        <a href="mailto:info@adventurecruisesmalta.com"><span class="ic">✉</span> info@adventurecruisesmalta.com</a>
-        <a href="https://www.google.com/maps?q=35.908534,14.505585" target="_blank" rel="noopener"><span class="ic">⚓</span> Sliema Ferries, Malta — get directions</a>
-      </div>
-
-      <div class="pay-block">
-        <p class="label">Instant Payments Accepted</p>
-        <div class="pay-buttons">
-          <a href="https://pay.revolut.com/profile/anthonzmyz" target="_blank" rel="noopener" class="btn btn-outline">Pay with Revolut</a>
-          <a href="http://paypal.me/adventurecruises" target="_blank" rel="noopener" class="btn btn-outline">Pay with PayPal</a>
+<!-- MODULO DI CONTATTO -->
+    <form id="contact-form">
+        <div>
+            <label for="user_name">Nome e Cognome</label>
+            <input type="text" id="user_name" name="user_name" required placeholder="Il tuo nome">
         </div>
-      </div>
-    </div>
-
-    <div class="reveal">
-      <form class="booking-form" id="bookingForm">
-        <div class="form-success" id="formSuccess" role="status"></div>
-
-        <div class="booking-step-title"><span>01</span> Choose your tour</div>
-        <div class="field">
-          <label for="tour">Charter type</label>
-          <select id="tour" name="tour" required>
-            <option value="" disabled selected>Choose a tour</option>
-            <option value="Private Full Day Charter">Private Full Day Charter — from €400 / day</option>
-            <option value="Crystal Lagoon & Blue Lagoon Full Day">Crystal Lagoon &amp; Blue Lagoon Full Day — €40 / person</option>
-            <option value="Special Night Harbour Cruise">Special Night Harbour Cruise — €20 / person</option>
-            <option value="Other / Personalised Tour">Other / Personalised Tour</option>
-          </select>
+        
+        <div>
+            <label for="user_email">Email</label>
+            <input type="email" id="user_email" name="user_email" required placeholder="la_tua_email@email.com">
         </div>
 
-        <div class="booking-step-title"><span>02</span> Date &amp; guests</div>
-        <div class="form-row">
-          <div class="field">
-            <label for="bookingDate">Preferred date</label>
-            <input type="date" id="bookingDate" name="bookingDate" required>
-            <small class="availability-note" id="availabilityNote">Select a date to check availability.</small>
-          </div>
-          <div class="field">
-            <label for="bookingTime">Preferred time</label>
-            <select id="bookingTime" name="bookingTime" required>
-              <option value="11:30">11:30</option>
-              <option value="18:30">18:30</option>
-            </select>
-          </div>
-        </div>
-        <div class="field">
-          <label for="persons">Number of persons</label>
-          <input type="number" id="persons" name="persons" min="1" max="40" placeholder="1–40" required>
+        <div>
+            <label for="message">Messaggio</label>
+            <textarea id="message" name="message" rows="5" required placeholder="Scrivi il tuo messaggio..."></textarea>
         </div>
 
-        <div class="booking-step-title"><span>03</span> Your details</div>
-        <div class="form-row">
-          <div class="field">
-            <label for="fname">First name</label>
-            <input type="text" id="fname" name="fname" autocomplete="given-name" required>
-          </div>
-          <div class="field">
-            <label for="lname">Last name</label>
-            <input type="text" id="lname" name="lname" autocomplete="family-name" required>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="field">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" autocomplete="email" required>
-          </div>
-          <div class="field">
-            <label for="phone">Phone</label>
-            <input type="tel" id="phone" name="phone" autocomplete="tel" required>
-          </div>
-        </div>
-        <div class="field">
-          <label for="message">Message (optional)</label>
-          <textarea id="message" name="message" placeholder="Pickup questions, dietary or accessibility notes…"></textarea>
-        </div>
-        <label class="consent-field"><input type="checkbox" id="consent" required> <span>I agree that my details can be used to process this booking request.</span></label>
-        <button type="submit" class="btn btn-primary btn-block" id="bookingSubmit">Check availability &amp; request booking</button>
-        <p class="form-note">No payment is taken at this step. Your request is saved and remains pending until you confirm it.</p>
-      </form>
-    </div>
-  </div>
-</section>
+        <button type="submit" id="submit-btn">Invia Messaggio</button>
+        <p id="form-status"></p>
+    </form>
+
+    <!-- EMAILJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <!-- SCRIPT GESTIONE INVIO -->
+    <script>
+        // Inizializza EmailJS con la tua PUBLIC KEY (trovala in Account Settings di EmailJS)
+        const PUBLIC_KEY = "EqAzAI4pftZFQ00pD"; 
+        emailjs.init(PUBLIC_KEY);
+
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const submitBtn = document.getElementById('submit-btn');
+            const statusMsg = document.getElementById('form-status');
+
+            // Disabilita bottone durante l'invio
+            submitBtn.disabled = true;
+            statusMsg.textContent = "Invio in corso...";
+            statusMsg.style.color = "blue";
+
+            // Parametri del tuo account EmailJS
+            const serviceID = "service_hlpaw2n";
+            const templateID = "template_c7ed2bn"; // Sostituisci con l'ID del template creato su EmailJS
+
+            // Invia il form
+            emailjs.sendForm(serviceID, templateID, this)
+                .then(function() {
+                    statusMsg.textContent = "Messaggio inviato con successo!";
+                    statusMsg.style.color = "green";
+                    document.getElementById('contact-form').reset();
+                    submitBtn.disabled = false;
+                }, function(error) {
+                    statusMsg.textContent = "Errore durante l'invio del messaggio. Riprova.";
+                    statusMsg.style.color = "red";
+                    console.error("EmailJS Error:", error);
+                    submitBtn.disabled = false;
+                });
+        });
+    </script>
 
 <!-- FOOTER -->
 <footer id="contact">
