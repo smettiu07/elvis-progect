@@ -302,67 +302,269 @@
   <img id="lightboxImg" src="" alt="">
 </div>
 
-<!-- BOOK -->
-<!-- MODULO DI CONTATTO -->
-    <form id="contact-form">
-        <div>
-            <label for="user_name">Nome e Cognome</label>
-            <input type="text" id="user_name" name="user_name" required placeholder="Il tuo nome">
-        </div>
-        
-        <div>
-            <label for="user_email">Email</label>
-            <input type="email" id="user_email" name="user_email" required placeholder="la_tua_email@email.com">
-        </div>
+<!-- BOOK / CONTACT FORM -->
 
-        <div>
-            <label for="message">Messaggio</label>
-            <textarea id="message" name="message" rows="5" required placeholder="Scrivi il tuo messaggio..."></textarea>
-        </div>
+<style>
+    #contact-form {
+        width: 100%;
+        max-width: 620px;
+        margin: 40px auto;
+        padding: 35px;
+        background: #ffffff;
+        border-radius: 18px;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+        box-sizing: border-box;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
 
-        <button type="submit" id="submit-btn">Invia Messaggio</button>
-        <p id="form-status"></p>
-    </form>
+    #contact-form .form-title {
+        text-align: center;
+        margin-bottom: 30px;
+    }
 
-    <!-- EMAILJS SDK -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    #contact-form .form-title h2 {
+        margin: 0 0 8px;
+        font-size: 28px;
+        font-weight: 700;
+        color: #1f2937;
+    }
 
-    <!-- SCRIPT GESTIONE INVIO -->
-    <script>
-        // Inizializza EmailJS con la tua PUBLIC KEY (trovala in Account Settings di EmailJS)
-        const PUBLIC_KEY = "EqAzAI4pftZFQ00pD"; 
-        emailjs.init(PUBLIC_KEY);
+    #contact-form .form-title p {
+        margin: 0;
+        color: #6b7280;
+        font-size: 14px;
+    }
 
-        document.getElementById('contact-form').addEventListener('submit', function(event) {
+    #contact-form .form-group {
+        margin-bottom: 20px;
+    }
+
+    #contact-form label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #374151;
+    }
+
+    #contact-form input,
+    #contact-form textarea {
+        width: 100%;
+        padding: 14px 16px;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        background: #f9fafb;
+        color: #1f2937;
+        font-size: 15px;
+        font-family: inherit;
+        outline: none;
+        box-sizing: border-box;
+        transition: all 0.2s ease;
+    }
+
+    #contact-form input {
+        height: 50px;
+    }
+
+    #contact-form textarea {
+        min-height: 130px;
+        resize: vertical;
+    }
+
+    #contact-form input::placeholder,
+    #contact-form textarea::placeholder {
+        color: #9ca3af;
+    }
+
+    #contact-form input:focus,
+    #contact-form textarea:focus {
+        background: #ffffff;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
+    }
+
+    #contact-form button {
+        width: 100%;
+        height: 52px;
+        margin-top: 5px;
+        border: none;
+        border-radius: 10px;
+        background: #2563eb;
+        color: #ffffff;
+        font-size: 15px;
+        font-weight: 600;
+        font-family: inherit;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    #contact-form button:hover {
+        background: #1d4ed8;
+        transform: translateY(-1px);
+        box-shadow: 0 8px 20px rgba(37, 99, 235, 0.20);
+    }
+
+    #contact-form button:active {
+        transform: translateY(0);
+    }
+
+    #contact-form button:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+    }
+
+    #form-status {
+        margin: 16px 0 0;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 500;
+        min-height: 20px;
+    }
+
+    /* MOBILE */
+    @media (max-width: 600px) {
+        #contact-form {
+            margin: 20px auto;
+            padding: 25px 20px;
+            border-radius: 14px;
+        }
+
+        #contact-form .form-title h2 {
+            font-size: 24px;
+        }
+
+        #contact-form input,
+        #contact-form textarea {
+            font-size: 16px;
+        }
+    }
+</style>
+
+
+<form id="contact-form">
+
+    <div class="form-title">
+        <h2>Get in Touch</h2>
+        <p>Fill in the form below and we'll get back to you shortly.</p>
+    </div>
+
+    <div class="form-group">
+        <label for="user_name">Nome e Cognome</label>
+        <input 
+            type="text" 
+            id="user_name" 
+            name="user_name" 
+            required 
+            placeholder="Il tuo nome e cognome"
+        >
+    </div>
+
+    <div class="form-group">
+        <label for="user_email">Email</label>
+        <input 
+            type="email" 
+            id="user_email" 
+            name="user_email" 
+            required 
+            placeholder="la_tua_email@email.com"
+        >
+    </div>
+
+    <div class="form-group">
+        <label for="message">Messaggio</label>
+        <textarea 
+            id="message" 
+            name="message" 
+            rows="5" 
+            required 
+            placeholder="Come possiamo aiutarti?"
+        ></textarea>
+    </div>
+
+    <button type="submit" id="submit-btn">
+        Invia Messaggio
+    </button>
+
+    <p id="form-status"></p>
+
+</form>
+
+
+<!-- EMAILJS SDK -->
+<script 
+    type="text/javascript" 
+    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+</script>
+
+
+<!-- EMAILJS SCRIPT -->
+<script>
+
+    // Inizializza EmailJS
+    const PUBLIC_KEY = "EqAzAI4pftZFQ00pD";
+
+    emailjs.init(PUBLIC_KEY);
+
+
+    document
+        .getElementById('contact-form')
+        .addEventListener('submit', function(event) {
+
             event.preventDefault();
 
+            const form = document.getElementById('contact-form');
             const submitBtn = document.getElementById('submit-btn');
             const statusMsg = document.getElementById('form-status');
 
-            // Disabilita bottone durante l'invio
+
+            // Stato invio
             submitBtn.disabled = true;
-            statusMsg.textContent = "Invio in corso...";
-            statusMsg.style.color = "blue";
+            submitBtn.textContent = "Invio in corso...";
+            
+            statusMsg.textContent = "Invio del messaggio...";
+            statusMsg.style.color = "#2563eb";
 
-            // Parametri del tuo account EmailJS
+
+            // EmailJS
             const serviceID = "service_hlpaw2n";
-            const templateID = "template_c7ed2bn"; // Sostituisci con l'ID del template creato su EmailJS
+            const templateID = "template_c7ed2bn";
 
-            // Invia il form
-            emailjs.sendForm(serviceID, templateID, this)
+
+            emailjs.sendForm(serviceID, templateID, form)
+
                 .then(function() {
-                    statusMsg.textContent = "Messaggio inviato con successo!";
-                    statusMsg.style.color = "green";
-                    document.getElementById('contact-form').reset();
+
+                    statusMsg.textContent =
+                        "✓ Messaggio inviato con successo!";
+
+                    statusMsg.style.color = "#16a34a";
+
+                    form.reset();
+
                     submitBtn.disabled = false;
-                }, function(error) {
-                    statusMsg.textContent = "Errore durante l'invio del messaggio. Riprova.";
-                    statusMsg.style.color = "red";
+                    submitBtn.textContent = "Invia Messaggio";
+
+                })
+
+                .catch(function(error) {
+
+                    statusMsg.textContent =
+                        "Si è verificato un errore. Riprova.";
+
+                    statusMsg.style.color = "#dc2626";
+
                     console.error("EmailJS Error:", error);
+
                     submitBtn.disabled = false;
+                    submitBtn.textContent = "Invia Messaggio";
+
                 });
+
         });
-    </script>
+
+</script>
 
 <!-- FOOTER -->
 <footer id="contact">
