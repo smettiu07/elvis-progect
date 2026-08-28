@@ -738,7 +738,38 @@
 
     const serviceID = "service_hlpaw2n";
     const templateID = "template_c7ed2bn";
+    // Recuperiamo i singoli campi
+    const fname = document.getElementById('fname').value;
+    const lname = document.getElementById('lname').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const tour = document.getElementById('tour').value;
+    const bookingDate = document.getElementById('bookingDate').value;
+    const bookingTime = document.getElementById('bookingTime').value;
+    const persons = document.getElementById('persons').value;
+    const userMessage = document.getElementById('message').value || "Nessun messaggio aggiuntivo";
 
+    // Formattiamo TUTTE le informazioni in un'unica stringa
+    const compiledMessage = 
+      "NUOVA RICHIESTA DI PRENOTAZIONE\n" +
+      "-----------------------------------\n" +
+      "Nome: " + fname + " " + lname + "\n" +
+      "Email: " + email + "\n" +
+      "Telefono: " + phone + "\n\n" +
+      "DETTAGLI TOUR:\n" +
+      "Tour selezionato: " + tour + "\n" +
+      "Data: " + bookingDate + "\n" +
+      "Ora: " + bookingTime + "\n" +
+      "Numero di persone: " + persons + "\n\n" +
+      "NOTE CLIENTE:\n" + userMessage;
+
+    // Inizializziamo l'oggetto includendo 'message' (e varianti di nome comuni per sicurezza)
+    const templateParams = {
+      from_name: fname + " " + lname,
+      reply_to: email,
+      message: compiledMessage,
+      user_message: compiledMessage
+    };
     emailjs.sendForm(serviceID, templateID, contactForm)
       .then(function() {
         statusMsg.textContent = "✓ Request sent successfully! We will contact you soon.";
