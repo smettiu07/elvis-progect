@@ -769,7 +769,7 @@
   document.getElementById('lightboxClose').addEventListener('click', () => lightbox.classList.remove('open'));
   lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.classList.remove('open'); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.classList.remove('open'); });
-
+/*
   // booking system -> PHP API
   const form = document.getElementById('bookingForm');
   const formSuccess = document.getElementById('formSuccess');
@@ -779,7 +779,7 @@
   const personsInput = document.getElementById('persons');
   const availabilityNote = document.getElementById('availabilityNote');
   const submitButton = document.getElementById('bookingSubmit');
-
+*/
   // Never allow a date in the past.
   const today = new Date();
   const localToday = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
@@ -796,7 +796,7 @@
       timeSelect.innerHTML = '<option value="11:30">11:30</option>';
     }
   }
-
+/*
   async function checkAvailability() {
     if (!tourSelect.value || !dateInput.value) return;
     availabilityNote.textContent = 'Checking availability…';
@@ -812,7 +812,7 @@
       availabilityNote.classList.add('unavailable');
       submitButton.disabled = false;
     }
-  }
+  }*/
 
   tourSelect.addEventListener('change', () => { updateTourLimits(); checkAvailability(); });
   dateInput.addEventListener('change', checkAvailability);
